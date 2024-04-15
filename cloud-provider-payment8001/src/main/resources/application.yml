@@ -1,0 +1,37 @@
+server:
+  port: 8001
+
+# ==========applicationName + druid-mysql8 driver===================
+spring:
+  # 交由bootstrap管理
+#  application:
+#    name: cloud-payment-service
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.6:3306/springcloud_2024?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+  # 多环境配置加载内容dev/prod,不写就是默认default配置，对应consul中Key/Value下config下的三个配置
+  profiles:
+    active: dev
+
+  # 交由bootstrap管理
+  # Spring Cloud Consul for Service Discovery
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        service-name: ${spring.application.name}
+
+# ========================mybatis===================
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.kais.cloud.entities
+  configuration:
+    map-underscore-to-camel-case: true
